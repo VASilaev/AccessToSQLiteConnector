@@ -1,0 +1,5 @@
+*.md working-tree-encoding=CP1251 eol=CRLF
+*.vbs working-tree-encoding=CP1251 eol=CRLF
+*.cls working-tree-encoding=CP1251 eol=CRLF
+*.dll binary
+*.accdb binary

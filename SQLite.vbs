@@ -4,7 +4,7 @@ dim objDynamicWrapperX, objPrintProvider, dbgLevel
 set objPrintProvider = Nothing
 
 sub Err_Raise (message)
-'Возбуждает исключение с указанным текстом
+'Р’РѕР·Р±СѓР¶РґР°РµС‚ РёСЃРєР»СЋС‡РµРЅРёРµ СЃ СѓРєР°Р·Р°РЅРЅС‹Рј С‚РµРєСЃС‚РѕРј
   err.raise 1000, , message
 end sub
 
@@ -13,15 +13,15 @@ function GetPrintProvider ()
 end function
 
 Function SetPrintProvider(pEngine)
-'Сохрняет ссылку на провайдера отладочных сообщений
-'#param pEngine - Объект с методом Output и единственным параметром
+'РЎРѕС…СЂРЅСЏРµС‚ СЃСЃС‹Р»РєСѓ РЅР° РїСЂРѕРІР°Р№РґРµСЂР° РѕС‚Р»Р°РґРѕС‡РЅС‹С… СЃРѕРѕР±С‰РµРЅРёР№
+'#param pEngine - РћР±СЉРµРєС‚ СЃ РјРµС‚РѕРґРѕРј Output Рё РµРґРёРЅСЃС‚РІРµРЅРЅС‹Рј РїР°СЂР°РјРµС‚СЂРѕРј
   set objPrintProvider = pEngine
-  if not objPrintProvider is nothing then dbg "Лог начат " & now(), 0
+  if not objPrintProvider is nothing then dbg "Р›РѕРі РЅР°С‡Р°С‚ " & now(), 0
 end function
 
 function GetFileLogger(spFileName)
-'Возвращает провайдера отладочных сообщений с выводом сообщений в файл
-'#param spFileName - имя файла с логом
+'Р’РѕР·РІСЂР°С‰Р°РµС‚ РїСЂРѕРІР°Р№РґРµСЂР° РѕС‚Р»Р°РґРѕС‡РЅС‹С… СЃРѕРѕР±С‰РµРЅРёР№ СЃ РІС‹РІРѕРґРѕРј СЃРѕРѕР±С‰РµРЅРёР№ РІ С„Р°Р№Р»
+'#param spFileName - РёРјСЏ С„Р°Р№Р»Р° СЃ Р»РѕРіРѕРј
   dim fl
   set fl = new FileLogger
   set fl.TextStream = CreateObject("Scripting.FileSystemObject").OpenTextFile(spFileName, 2, True)
@@ -29,9 +29,9 @@ function GetFileLogger(spFileName)
 end function
 
 Sub dbg(spDbgText, npLevel)
-'Выводит отладочное сообщение через провайдер
-'#param spDbgText - Теккстовое сообщение
-'#param npLevel - Уровень сдвига. Если положительное то следующие сообщения будут выведены с добавление пробелов. Если отрицательное, то начиная с текущего сообщения сдвигается влево
+'Р’С‹РІРѕРґРёС‚ РѕС‚Р»Р°РґРѕС‡РЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ С‡РµСЂРµР· РїСЂРѕРІР°Р№РґРµСЂ
+'#param spDbgText - РўРµРєРєСЃС‚РѕРІРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
+'#param npLevel - РЈСЂРѕРІРµРЅСЊ СЃРґРІРёРіР°. Р•СЃР»Рё РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРµ С‚Рѕ СЃР»РµРґСѓСЋС‰РёРµ СЃРѕРѕР±С‰РµРЅРёСЏ Р±СѓРґСѓС‚ РІС‹РІРµРґРµРЅС‹ СЃ РґРѕР±Р°РІР»РµРЅРёРµ РїСЂРѕР±РµР»РѕРІ. Р•СЃР»Рё РѕС‚СЂРёС†Р°С‚РµР»СЊРЅРѕРµ, С‚Рѕ РЅР°С‡РёРЅР°СЏ СЃ С‚РµРєСѓС‰РµРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ СЃРґРІРёРіР°РµС‚СЃСЏ РІР»РµРІРѕ
   
   if not objPrintProvider is Nothing then
     
@@ -55,10 +55,8 @@ end Sub
 
 
 Function InitDLL (spDllPath)
-'Инициализация динамически подключаемой библиотеки
-'#param spDllPath - Абсолютный путь до sqlite3.dll
-
-  objDynamicWrapperX.Register "kernel32", "WideCharToMultiByte", "i=llplplpp", "r=l"
+'РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РґРёРЅР°РјРёС‡РµСЃРєРё РїРѕРґРєР»СЋС‡Р°РµРјРѕР№ Р±РёР±Р»РёРѕС‚РµРєРё
+'#param spDllPath - РђР±СЃРѕР»СЋС‚РЅС‹Р№ РїСѓС‚СЊ РґРѕ sqlite3.dll
 
   objDynamicWrapperX.Register spDllPath, "sqlite3_errmsg", "i=p", "r=p"
   objDynamicWrapperX.Register spDllPath, "sqlite3_prepare16_v2", "i=pwlPp", "r=l"
@@ -88,11 +86,11 @@ Function InitDLL (spDllPath)
   objDynamicWrapperX.Register spDllPath, "sqlite3_bind_null", "i=pl", "r=l"
   objDynamicWrapperX.Register spDllPath, "sqlite3_bind_text16", "i=plwlp", "r=l"
 
-  'Работа с памятью 
+  'Р Р°Р±РѕС‚Р° СЃ РїР°РјСЏС‚СЊСЋ 
   objDynamicWrapperX.Register spDllPath, "sqlite3_malloc", "i=l", "r=p"
   objDynamicWrapperX.Register spDllPath, "sqlite3_free", "i=p"
 
-  'Набор функций для возврата результата
+  'РќР°Р±РѕСЂ С„СѓРЅРєС†РёР№ РґР»СЏ РІРѕР·РІСЂР°С‚Р° СЂРµР·СѓР»СЊС‚Р°С‚Р°
   objDynamicWrapperX.Register spDllPath, "sqlite3_result_double", "i=pd"
   objDynamicWrapperX.Register spDllPath, "sqlite3_result_int", "i=pl"
   objDynamicWrapperX.Register spDllPath, "sqlite3_result_text16", "i=pwlp"
@@ -108,10 +106,10 @@ Function InitDLL (spDllPath)
 end function
 
 Function OpenDataBase(sDataBaseName, oWrapper, oApplication)
-'Открывает базу данных SQLite и возвращает объект соединения
-'#param sDataBaseName - Абсолютный путь до файла с БД. Передайте пусто, для создания БД в памяти
-'#param oWrapper - Ссылка на класс SQLiteEngine. Пока жив хотя бы один экземпляр объект соединения класс SQLiteEngine не будет уничтожен
-'#param oApplication - Ссылка на Access.Application. Нужен для созданитя объектов подключения для присоединенных БД
+'РћС‚РєСЂС‹РІР°РµС‚ Р±Р°Р·Сѓ РґР°РЅРЅС‹С… SQLite Рё РІРѕР·РІСЂР°С‰Р°РµС‚ РѕР±СЉРµРєС‚ СЃРѕРµРґРёРЅРµРЅРёСЏ
+'#param sDataBaseName - РђР±СЃРѕР»СЋС‚РЅС‹Р№ РїСѓС‚СЊ РґРѕ С„Р°Р№Р»Р° СЃ Р‘Р”. РџРµСЂРµРґР°Р№С‚Рµ РїСѓСЃС‚Рѕ, РґР»СЏ СЃРѕР·РґР°РЅРёСЏ Р‘Р” РІ РїР°РјСЏС‚Рё
+'#param oWrapper - РЎСЃС‹Р»РєР° РЅР° РєР»Р°СЃСЃ SQLiteEngine. РџРѕРєР° Р¶РёРІ С…РѕС‚СЏ Р±С‹ РѕРґРёРЅ СЌРєР·РµРјРїР»СЏСЂ РѕР±СЉРµРєС‚ СЃРѕРµРґРёРЅРµРЅРёСЏ РєР»Р°СЃСЃ SQLiteEngine РЅРµ Р±СѓРґРµС‚ СѓРЅРёС‡С‚РѕР¶РµРЅ
+'#param oApplication - РЎСЃС‹Р»РєР° РЅР° Access.Application. РќСѓР¶РµРЅ РґР»СЏ СЃРѕР·РґР°РЅРёС‚СЏ РѕР±СЉРµРєС‚РѕРІ РїРѕРґРєР»СЋС‡РµРЅРёСЏ РґР»СЏ РїСЂРёСЃРѕРµРґРёРЅРµРЅРЅС‹С… Р‘Р”
 
   dim oDB 
   set oDB = new SQLite_Connection
@@ -125,9 +123,9 @@ end function
 
 
 sub addInArray(byref spArray, byref pItem)
-'Добавляет элемент в массив на месте
-'#param spArray - Ссылка на массив в который нужно добавить элемент. Если пераметр пуст то создается пустой массив
-'#param pItem - Добавляемый элемент
+'Р”РѕР±Р°РІР»СЏРµС‚ СЌР»РµРјРµРЅС‚ РІ РјР°СЃСЃРёРІ РЅР° РјРµСЃС‚Рµ
+'#param spArray - РЎСЃС‹Р»РєР° РЅР° РјР°СЃСЃРёРІ РІ РєРѕС‚РѕСЂС‹Р№ РЅСѓР¶РЅРѕ РґРѕР±Р°РІРёС‚СЊ СЌР»РµРјРµРЅС‚. Р•СЃР»Рё РїРµСЂР°РјРµС‚СЂ РїСѓСЃС‚ С‚Рѕ СЃРѕР·РґР°РµС‚СЃСЏ РїСѓСЃС‚РѕР№ РјР°СЃСЃРёРІ
+'#param pItem - Р”РѕР±Р°РІР»СЏРµРјС‹Р№ СЌР»РµРјРµРЅС‚
   if not isArray(spArray) then spArray = array()
   redim preserve spArray(ubound(spArray) + 1)
   spArray(ubound(spArray)) = pItem
@@ -136,9 +134,9 @@ end sub
 
 
 function ShiftRightN(s, nCount)
-'Сдвигает каждую строчку текста на указанное число пробелов
-'#param s - Текст
-'#param nCount - Число пробелов которое нужно включить перед строкой
+'РЎРґРІРёРіР°РµС‚ РєР°Р¶РґСѓСЋ СЃС‚СЂРѕС‡РєСѓ С‚РµРєСЃС‚Р° РЅР° СѓРєР°Р·Р°РЅРЅРѕРµ С‡РёСЃР»Рѕ РїСЂРѕР±РµР»РѕРІ
+'#param s - РўРµРєСЃС‚
+'#param nCount - Р§РёСЃР»Рѕ РїСЂРѕР±РµР»РѕРІ РєРѕС‚РѕСЂРѕРµ РЅСѓР¶РЅРѕ РІРєР»СЋС‡РёС‚СЊ РїРµСЂРµРґ СЃС‚СЂРѕРєРѕР№
 
   dim l, sSpace
   sSpace = space(nCount * 2)
@@ -151,8 +149,8 @@ end function
 
 
 function dumpVar(byref a)
-'Выводит содержимое переменной
-'#param a - Исследуемая переменная
+'Р’С‹РІРѕРґРёС‚ СЃРѕРґРµСЂР¶РёРјРѕРµ РїРµСЂРµРјРµРЅРЅРѕР№
+'#param a - РСЃСЃР»РµРґСѓРµРјР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ
 
   'on Error resume next
   dim i, v
@@ -189,7 +187,7 @@ function dumpVar(byref a)
     else 
       dumpVar = "object(" & TypeName(a) &")"
     end if
-  else 'Все остальные как строки
+  else 'Р’СЃРµ РѕСЃС‚Р°Р»СЊРЅС‹Рµ РєР°Рє СЃС‚СЂРѕРєРё
     if isNull(a) then
      dumpVar = "[NULL]"  
     elseif isEmpty(a) then
@@ -207,14 +205,14 @@ function dumpVar(byref a)
 end function
 
 Public Sub DumpMem(ByVal pAddress , ByVal nLength)
-'Собирает дамп памяти
-'#param pAddress - Стартовый адрес
-'#param nLength - Размер дампа
+'РЎРѕР±РёСЂР°РµС‚ РґР°РјРї РїР°РјСЏС‚Рё
+'#param pAddress - РЎС‚Р°СЂС‚РѕРІС‹Р№ Р°РґСЂРµСЃ
+'#param nLength - Р Р°Р·РјРµСЂ РґР°РјРїР°
 
   Dim b , s, l 
   
-  dbg "Dump memmory from " & Hex(pAddress), 0
-  dbg "00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F", 0
+  if not objPrintProvider is Nothing then dbg "Dump memmory from " & Hex(pAddress), 0
+  if not objPrintProvider is Nothing then dbg "00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F", 0
   
   Do While nLength > 0
     s = ""
@@ -227,9 +225,9 @@ Public Sub DumpMem(ByVal pAddress , ByVal nLength)
       If s <> "" Then s = s & " "
       If b < 16 Then s = s & "0" & Hex(b) Else s = s & Hex(b)
     Loop
-    dbg s, 0
+    if not objPrintProvider is Nothing then dbg s, 0
   Loop
-  dbg "", 0
+  if not objPrintProvider is Nothing then dbg "", 0
 End Sub
 
 on Error resume next
@@ -239,7 +237,7 @@ if err then
  set objDynamicWrapperX = CreateObject("DynamicWrapperX.2")
  if err then 
    on Error goto 0   
-   err_raise "Установите сначала DynamicWrapperX"
+   err_raise "РЈСЃС‚Р°РЅРѕРІРёС‚Рµ СЃРЅР°С‡Р°Р»Р° DynamicWrapperX"
  end if
 end if
 
@@ -313,16 +311,16 @@ const SQLITE_INDEX_CONSTRAINT_FUNCTION = 150
 const SQLITE_INDEX_SCAN_UNIQUE = 1
 
 Function GetCursorOject(hCursor)
-'Получает объект курсора поего указателю
-'#param hCursor: Указатель на курсор
+'РџРѕР»СѓС‡Р°РµС‚ РѕР±СЉРµРєС‚ РєСѓСЂСЃРѕСЂР° РїРѕРµРіРѕ СѓРєР°Р·Р°С‚РµР»СЋ
+'#param hCursor - РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РєСѓСЂСЃРѕСЂ
 
   GetCursorOject = objDynamicWrapperX.numGet (hCursor, ptr_size, "p")
   set GetCursorOject = objDynamicWrapperX.ObjGet(GetCursorOject)
 end function
 
 Function SQLite3_Value(ptr)
-'Извлекает значение из структуры sqlite3_value 
-'#param pPtr: Указатель на структуру sqlite3_value 
+'РР·РІР»РµРєР°РµС‚ Р·РЅР°С‡РµРЅРёРµ РёР· СЃС‚СЂСѓРєС‚СѓСЂС‹ sqlite3_value 
+'#param pPtr - РЈРєР°Р·Р°С‚РµР»СЊ РЅР° СЃС‚СЂСѓРєС‚СѓСЂСѓ sqlite3_value 
 
  Select Case objDynamicWrapperX.sqlite3_value_type(ptr)  
    Case SQLITE_NULL
@@ -334,24 +332,24 @@ Function SQLite3_Value(ptr)
    Case SQLITE_TEXT
      SQLite3_Value = objDynamicWrapperX.sqlite3_value_text16(ptr)
    Case SQLITE_BLOB
-     SQLite3_Value = "BLOB НЕ РЕАЛИЗОВАН"
+     SQLite3_Value = "BLOB РќР• Р Р•РђР›РР—РћР’РђРќ"
    Case Else
-     SQLite3_Value = "НЕ УАДЛОСЬ ОПРЕДЕЛИТЬ ТИП"
+     SQLite3_Value = "РќР• РЈРђР”Р›РћРЎР¬ РћРџР Р•Р”Р•Р›РРўР¬ РўРРџ"
  End Select 
 
-  dbg " - SQLite3_Value Type = [" & typename(SQLite3_Value) & "], Value = [" & SQLite3_Value & "]", 0  
+  if not objPrintProvider is Nothing then dbg " - SQLite3_Value Type = [" & typename(SQLite3_Value) & "], Value = [" & SQLite3_Value & "]", 0  
 end function
 
 Function GetVArr(pPtr, nIdx)
-'Извлекает элемент из массива указателей
-'#param pPtr: Указатель на начало массива
-'#param nIdx: Индекс элемента
+'РР·РІР»РµРєР°РµС‚ СЌР»РµРјРµРЅС‚ РёР· РјР°СЃСЃРёРІР° СѓРєР°Р·Р°С‚РµР»РµР№
+'#param pPtr - РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РЅР°С‡Р°Р»Рѕ РјР°СЃСЃРёРІР°
+'#param nIdx - РРЅРґРµРєСЃ СЌР»РµРјРµРЅС‚Р°
  GetVArr = objDynamicWrapperX.numGet (pPtr, nIdx * ptr_size, "p")
 end function
 
 
 class SQLite3_AccessVirtualTable
-'Вспомогательный клас, содержит все необходимое для создания RecordSet
+'Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Р№ РєР»Р°СЃ, СЃРѕРґРµСЂР¶РёС‚ РІСЃРµ РЅРµРѕР±С…РѕРґРёРјРѕРµ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ RecordSet
   public SelfLock, sTableName, oConnection, aFields, aIndexes, nEstimatedRows, nROWIDColumn, CanSeek, TableRecordSet, primaryKeyIndex, hVTab
   public  sub setError (sError)
     dim ptr 
@@ -362,7 +360,7 @@ class SQLite3_AccessVirtualTable
 end class 
 
 class SQLite3_AccessVirtualIndex
-'Вспомогательный класс, описывающий индекс
+'Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Р№ РєР»Р°СЃСЃ, РѕРїРёСЃС‹РІР°СЋС‰РёР№ РёРЅРґРµРєСЃ
   public Name, Unique, Count, FullMask, Cost, EstimatedRows, columnUsage, ColumnToConstrain
   public function dump()
     dump = replace("{\n Name:"""& Name & """,\n Unique:" & Unique & ",\n Count:" & Count & ",\n FullMask:" & FullMask & ",\n Cost:" & Cost &  ",\n ColumnToConstrain:" & dumpvar(ColumnToConstrain) & "\n}","\n", vbcrlf)
@@ -371,7 +369,7 @@ end class
 
 
 class SQLite3_AccessVTCursor
-'Вспомогательный класс, текущего курсора
+'Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Р№ РєР»Р°СЃСЃ, С‚РµРєСѓС‰РµРіРѕ РєСѓСЂСЃРѕСЂР°
   public SelfLock, oRecordSet, oVirtualTable, FindByPK
 end class 
 
@@ -402,26 +400,26 @@ end function
 
 
 Function SQLite3AccessInit (byVal hDB, byVal pAux, byVal argc, byval argv, byval ppVtab, ByVal pzErr)
-'Создание виртуальной таблицы
+'РЎРѕР·РґР°РЅРёРµ РІРёСЂС‚СѓР°Р»СЊРЅРѕР№ С‚Р°Р±Р»РёС†С‹
 
   dim oConnection, oAccessConnection, oTableDef
-  dbg ">SQLite3AccessInit hDB = [" & hDB & "], pAux = [" & pAux & "], argc = [" & argc & "], argv = [" & argv & "], ppVtab = [" & ppVtab & "], pzErr = [" & pzErr & "]", + 2
+  if not objPrintProvider is Nothing then dbg ">SQLite3AccessInit hDB = [" & hDB & "], pAux = [" & pAux & "], argc = [" & argc & "], argv = [" & argv & "], ppVtab = [" & ppVtab & "], pzErr = [" & pzErr & "]", + 2
   set oConnection = objDynamicWrapperX.ObjGet(pAux)
   'msgbox "oAccess.Name = [" & oAccess.name & "]"
 
   if argc < 4 then 
-    objDynamicWrapperX.numPut SQLite3mPrint("Укажите имя присоединяемой таблицы"), pzErr, 0, "p"
+    objDynamicWrapperX.numPut SQLite3mPrint("РЈРєР°Р¶РёС‚Рµ РёРјСЏ РїСЂРёСЃРѕРµРґРёРЅСЏРµРјРѕР№ С‚Р°Р±Р»РёС†С‹"), pzErr, 0, "p"
     SQLite3AccessInit = SQLITE_Error     
   else   
     dim sTableName
     sTableName = objDynamicWrapperX.strGet(objDynamicWrapperX.numGet (argv, 3 * ptr_size, "p"),0,"UTF-8")
 
-    dbg "Table [" & sTableName & "]", 0
+    if not objPrintProvider is Nothing then dbg "Table [" & sTableName & "]", 0
 
     set oAccessConnection = oConnection.GetAccessDB("")
     if oAccessConnection is Nothing then 
-      dbg "No current DB", 0
-      objDynamicWrapperX.numPut SQLite3mPrint("Не найдена база данных [По умолчанию]"), pzErr, 0, "p"
+      if not objPrintProvider is Nothing then dbg "No current DB", 0
+      objDynamicWrapperX.numPut SQLite3mPrint("РќРµ РЅР°Р№РґРµРЅР° Р±Р°Р·Р° РґР°РЅРЅС‹С… [РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ]"), pzErr, 0, "p"
       SQLite3AccessInit = SQLITE_Error    
     else 
       set oTableDef = oAccessConnection.TableDefs(sTableName)     
@@ -429,7 +427,7 @@ Function SQLite3AccessInit (byVal hDB, byVal pAux, byVal argc, byval argv, byval
       dim vTab, vFieldDef, sSchema
       set vTab = new SQLite3_AccessVirtualTable
 
-'todo открывать новое подключение для внешних таблиц 
+'todo РѕС‚РєСЂС‹РІР°С‚СЊ РЅРѕРІРѕРµ РїРѕРґРєР»СЋС‡РµРЅРёРµ РґР»СЏ РІРЅРµС€РЅРёС… С‚Р°Р±Р»РёС† 
       vTab.CanSeek = true
 
       if oTableDef.Connect <> "" then 
@@ -450,7 +448,7 @@ Function SQLite3AccessInit (byVal hDB, byVal pAux, byVal argc, byval argv, byval
       vTab.sTableName = sTableName
 
 
-      dbg "Fields count [" & oTableDef.Fields.Count & "]", 0
+      if not objPrintProvider is Nothing then dbg "Fields count [" & oTableDef.Fields.Count & "]", 0
 
       vFieldDef = array()   
       if oTableDef.Fields.Count > 0 then      
@@ -465,7 +463,7 @@ Function SQLite3AccessInit (byVal hDB, byVal pAux, byVal argc, byval argv, byval
 
       end if
 
-      dbg "Index count [" & oTableDef.Indexes.Count & "]", 0
+      if not objPrintProvider is Nothing then dbg "Index count [" & oTableDef.Indexes.Count & "]", 0
 
       vFieldDef = array()  
       if oTableDef.Indexes.Count > 0 then       
@@ -515,9 +513,9 @@ Function SQLite3AccessInit (byVal hDB, byVal pAux, byVal argc, byval argv, byval
         next
       end if
 
-      dbg "nEstimatedRows [" & vTab.nEstimatedRows & "]", 0
+      if not objPrintProvider is Nothing then dbg "nEstimatedRows [" & vTab.nEstimatedRows & "]", 0
 
-      'индексы нужно отсортировать от самых ценных к самым бесполезным 
+      'РёРЅРґРµРєСЃС‹ РЅСѓР¶РЅРѕ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°С‚СЊ РѕС‚ СЃР°РјС‹С… С†РµРЅРЅС‹С… Рє СЃР°РјС‹Рј Р±РµСЃРїРѕР»РµР·РЅС‹Рј 
 
 
       'dbg "Fields",0 
@@ -562,7 +560,7 @@ Function SQLite3AccessInit (byVal hDB, byVal pAux, byVal argc, byval argv, byval
       sSchema = "CREATE TABLE x(" & sSchema & ")" 
       if isEmpty(vTab.nROWIDColumn) then sSchema = sSchema & "WITHOUT ROWID"         
       
-      dbg "Table Schema [" & sSchema & "]", 0
+      if not objPrintProvider is Nothing then dbg "Table Schema [" & sSchema & "]", 0
 
       dim rc
       rc = objDynamicWrapperX.sqlite3_declare_vtab (hDB, objDynamicWrapperX.StrPtr(sSchema,"UTF-8"))
@@ -578,24 +576,24 @@ Function SQLite3AccessInit (byVal hDB, byVal pAux, byVal argc, byval argv, byval
         else 
           set vTab.SelfLock = vTab
           vTab.hVTab = rc
-          dbg "vTab obj ref [" & objDynamicWrapperX.ObjPtr(vTab) & "] struct address [" & rc & "]", 0
+          if not objPrintProvider is Nothing then dbg "vTab obj ref [" & objDynamicWrapperX.ObjPtr(vTab) & "] struct address [" & rc & "]", 0
           objDynamicWrapperX.numPut rc, ppVtab, 0, "p"
           objDynamicWrapperX.numPut objDynamicWrapperX.ObjPtr(vTab), rc, 3 * ptr_size, "p"
           SQLite3AccessInit = SQLITE_OK            
         end if
         
       else 
-        objDynamicWrapperX.numPut SQLite3mPrint("Не удалось зарегистрировать схему таблицы " & sSchema), pzErr, 0, "p"
+        objDynamicWrapperX.numPut SQLite3mPrint("РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊ СЃС…РµРјСѓ С‚Р°Р±Р»РёС†С‹ " & sSchema), pzErr, 0, "p"
         SQLite3AccessInit = SQLITE_Error            
       end if   
     end if
   end if
-  dbg "<SQLite3AccessInit " & SQLite3AccessInit, -2
+  if not objPrintProvider is Nothing then dbg "<SQLite3AccessInit " & SQLite3AccessInit, -2
 end function
 
 Function SQLite3AccessConnect (byVal hDB, byVal pAux, byVal argc, byval argv, byval ppVtab, ByVal pzErr)
 'Virtual table method [xConnect](https://www.sqlite.org/vtab.html#xconnect)
-  dbg ">SQLite3AccessConnect " , 2
+  if not objPrintProvider is Nothing then dbg ">SQLite3AccessConnect " , 2
   dim sError
   on Error resume next 
   SQLite3AccessConnect = SQLite3AccessInit(hDB,pAux,argc,argv,ppVtab,pzErr)
@@ -605,13 +603,13 @@ Function SQLite3AccessConnect (byVal hDB, byVal pAux, byVal argc, byval argv, by
     objDynamicWrapperX.numPut SQLite3mPrint(sError), pzErr, 0, "p"
     SQLite3AccessConnect = SQLITE_Error       
   end if
-  dbg "<SQLite3AccessConnect " & SQLite3AccessConnect, -2
+  if not objPrintProvider is Nothing then dbg "<SQLite3AccessConnect " & SQLite3AccessConnect, -2
 end function
 
 
 Function SQLite3AccessCreate (byVal hDB, byVal pAux, byVal argc, byval argv, byval ppVtab, ByVal pzErr)
 'Virtual table method [xCreate](https://www.sqlite.org/vtab.html#xcreate)
-  dbg ">SQLite3AccessConnect " , 2
+  if not objPrintProvider is Nothing then dbg ">SQLite3AccessConnect " , 2
   dim sError
   on Error resume next 
   SQLite3AccessCreate = SQLite3AccessInit(hDB,pAux,argc,argv,ppVtab,pzErr)
@@ -621,7 +619,7 @@ Function SQLite3AccessCreate (byVal hDB, byVal pAux, byVal argc, byval argv, byv
     objDynamicWrapperX.numPut SQLite3mPrint(sError), pzErr, 0, "p"
     SQLite3AccessCreate = SQLITE_Error       
   end if
-  dbg "<SQLite3AccessCreate " & SQLite3AccessCreate, -2
+  if not objPrintProvider is Nothing then dbg "<SQLite3AccessCreate " & SQLite3AccessCreate, -2
 end function
 
 
@@ -630,17 +628,17 @@ Function SQLite3AccessBestIndex (byVal hVTab, byVal hIdxInfo)
   dim vTab, bFullScan
   bFullScan = true 
   vTab = objDynamicWrapperX.numGet (hVTab, 3 * ptr_size, "p")
-  dbg ">SQLite3AccessBestIndex hVTab = [" & hVTab & "] ovTab = [" & vTab & "] hIdxInfo =[" & hIdxInfo & "]", +2
+  if not objPrintProvider is Nothing then dbg ">SQLite3AccessBestIndex hVTab = [" & hVTab & "] ovTab = [" & vTab & "] hIdxInfo =[" & hIdxInfo & "]", +2
   set vTab = objDynamicWrapperX.ObjGet(vTab)
 
   'DumpMem  hIdxInfo, 16 * ptr_size
   
   dim nConstraint, aConstraint, aConstraintUsage, CurrentCost
-  'Число ограничений
+  'Р§РёСЃР»Рѕ РѕРіСЂР°РЅРёС‡РµРЅРёР№
   nConstraint = objDynamicWrapperX.numGet (hIdxInfo, 0, "l")
-  'Описание ограничения
+  'РћРїРёСЃР°РЅРёРµ РѕРіСЂР°РЅРёС‡РµРЅРёСЏ
   aConstraint = objDynamicWrapperX.numGet (hIdxInfo, ptr_size, "p")
-  'Сюда будем писать какие ограничения нам нужны
+  'РЎСЋРґР° Р±СѓРґРµРј РїРёСЃР°С‚СЊ РєР°РєРёРµ РѕРіСЂР°РЅРёС‡РµРЅРёСЏ РЅР°Рј РЅСѓР¶РЅС‹
   aConstraintUsage = objDynamicWrapperX.numGet (hIdxInfo, ptr_size * 4, "p")
  
   CurrentCost = vTab.nEstimatedRows
@@ -655,7 +653,7 @@ Function SQLite3AccessBestIndex (byVal hVTab, byVal hIdxInfo)
 
   idxNum = 0
 
-  dbg "nConstraint = [" & nConstraint & "] aConstraint = [" & aConstraint & "]" , 0
+  if not objPrintProvider is Nothing then dbg "nConstraint = [" & nConstraint & "] aConstraint = [" & aConstraint & "]" , 0
 
   if nConstraint > 0 then 
     dim idxConstraint, Usage, nConst
@@ -663,11 +661,11 @@ Function SQLite3AccessBestIndex (byVal hVTab, byVal hIdxInfo)
     
     for idxConstraint  = 0 TO  nConstraint - 1
       op = objDynamicWrapperX.numGet (aConstraint, idxConstraint * 3 * ptr_size + ptr_size, "b") 'Op
-      column = objDynamicWrapperX.numGet (aConstraint, idxConstraint * 3 * ptr_size , "l") 'Номер столбца
+      column = objDynamicWrapperX.numGet (aConstraint, idxConstraint * 3 * ptr_size , "l") 'РќРѕРјРµСЂ СЃС‚РѕР»Р±С†Р°
       if objDynamicWrapperX.numGet (aConstraint, idxConstraint * 3 * ptr_size + ptr_size + 1, "b") = 1 then 'usage = 0 
-        'ограничение можем обработать только если usage = true
+        'РѕРіСЂР°РЅРёС‡РµРЅРёРµ РјРѕР¶РµРј РѕР±СЂР°Р±РѕС‚Р°С‚СЊ С‚РѕР»СЊРєРѕ РµСЃР»Рё usage = true
 
-        dbg idxConstraint & ": column [" & (vTab.aFields(column)(0)) & "] op = [" & op & "]" , 0
+        if not objPrintProvider is Nothing then dbg idxConstraint & ": column [" & (vTab.aFields(column)(0)) & "] op = [" & op & "]" , 0
         
         if op = SQLITE_INDEX_CONSTRAINT_EQ or op = SQLITE_INDEX_CONSTRAINT_GT or op = SQLITE_INDEX_CONSTRAINT_LE or _
            op = SQLITE_INDEX_CONSTRAINT_LT or op = SQLITE_INDEX_CONSTRAINT_GE or op = SQLITE_INDEX_CONSTRAINT_LIKE or _ 
@@ -697,20 +695,20 @@ Function SQLite3AccessBestIndex (byVal hVTab, byVal hIdxInfo)
           if op = SQLITE_INDEX_CONSTRAINT_EQ then 
             bFullScan = false
             if not isEmpty(vTab.aFields(column)(1)) then              
-              dim iIndex: iIndex = 1  'порядковый номер индекса 
+              dim iIndex: iIndex = 1  'РїРѕСЂСЏРґРєРѕРІС‹Р№ РЅРѕРјРµСЂ РёРЅРґРµРєСЃР° 
               for each indexIdx in vTab.aFields(column)(1)
                 indexIdx(0).columnUsage = indexIdx(0).columnUsage or indexIdx(1) 
                 indexIdx(0).ColumnToConstrain(indexIdx(2)) = idxConstraint
                 if indexIdx(0).columnUsage and indexIdx(0).FullMask = indexIdx(0).FullMask then 
                   CurrentCost = indexIdx(0).Cost                  
                   if indexIdx(0).Unique then 
-                    dbg "Вернет 0 или 1 строку" , 0
+                    if not objPrintProvider is Nothing then dbg "Р’РµСЂРЅРµС‚ 0 РёР»Рё 1 СЃС‚СЂРѕРєСѓ" , 0
                     objDynamicWrapperX.numPut SQLITE_INDEX_SCAN_UNIQUE, hIdxInfo, 14 * ptr_size, "l"
 
                     if vTab.CanSeek then 
-                      'Запоминаем номер индекса
+                      'Р—Р°РїРѕРјРёРЅР°РµРј РЅРѕРјРµСЂ РёРЅРґРµРєСЃР°
                       idxNum = iIndex
-                      'Условие больше не нужно  
+                      'РЈСЃР»РѕРІРёРµ Р±РѕР»СЊС€Рµ РЅРµ РЅСѓР¶РЅРѕ  
                       sWhere = ""
                       for idxConstr = 0 to idxConstraint
                         objDynamicWrapperX.numPut 0, aConstraintUsage, idxConstr * ptr_size * 2, "l"    'argvIndex
@@ -720,7 +718,7 @@ Function SQLite3AccessBestIndex (byVal hVTab, byVal hIdxInfo)
                         objDynamicWrapperX.numPut idxConstr + 1, aConstraintUsage, indexIdx(0).ColumnToConstrain(idxConstr) * ptr_size * 2, "l"    'argvIndex
                         objDynamicWrapperX.numPut 1, aConstraintUsage, indexIdx(0).ColumnToConstrain(idxConstr) * ptr_size * 2 + ptr_size, "b"  'omit
                       next
-                      exit for 'Лучше уже не будет
+                      exit for 'Р›СѓС‡С€Рµ СѓР¶Рµ РЅРµ Р±СѓРґРµС‚
                     end if
                   end if
                 end if
@@ -736,14 +734,14 @@ Function SQLite3AccessBestIndex (byVal hVTab, byVal hIdxInfo)
           
         end if
       else 
-        dbg idxConstraint & ": column [" & (vTab.aFields(column)(0)) & "] op = [" & op & "] no usage" , 0
+        if not objPrintProvider is Nothing then dbg idxConstraint & ": column [" & (vTab.aFields(column)(0)) & "] op = [" & op & "] no usage" , 0
       end if
     next
   end if
 
 
 
-  dbg "Cost = [" & CurrentCost & "] FullScan = [" & bFullScan & "] idxNum = [" & idxNum & "] where " & sWhere, 0
+  if not objPrintProvider is Nothing then dbg "Cost = [" & CurrentCost & "] FullScan = [" & bFullScan & "] idxNum = [" & idxNum & "] where " & sWhere, 0
 
 
 
@@ -765,7 +763,7 @@ Function SQLite3AccessBestIndex (byVal hVTab, byVal hIdxInfo)
         sOrderBy = sOrderBy & "[" & (vTab.aFields(column)(0)) & "]"
         if objDynamicWrapperX.numGet (aOrderBy, nConstraint * 2 * ptr_size + ptr_size, "b") = 1 then sOrderBy = sOrderBy & " desc"
       next
-      dbg "nOrderBy = [" & nOrderBy & "] sOrderBy " & sOrderBy, 0
+      if not objPrintProvider is Nothing then dbg "nOrderBy = [" & nOrderBy & "] sOrderBy " & sOrderBy, 0
      
       sWhere = sWhere & " order by " & sOrderBy
       objDynamicWrapperX.numPut 1, hIdxInfo, 8 * ptr_size, "l" 'orderByConsumed
@@ -786,7 +784,7 @@ Function SQLite3AccessBestIndex (byVal hVTab, byVal hIdxInfo)
     objDynamicWrapperX.numPut clng(CurrentCost), hIdxInfo, 12 * ptr_size, "q"       ' estimatedRows  
   end if
 
-  dbg "Rows = [" & objDynamicWrapperX.numGet (hIdxInfo, 12 * ptr_size, "l") & "] Cost = [" & objDynamicWrapperX.numGet (hIdxInfo, 10 * ptr_size, "d")  & "]" , 0
+  if not objPrintProvider is Nothing then dbg "Rows = [" & objDynamicWrapperX.numGet (hIdxInfo, 12 * ptr_size, "l") & "] Cost = [" & objDynamicWrapperX.numGet (hIdxInfo, 10 * ptr_size, "d")  & "]" , 0
 
   'DumpMem  hIdxInfo, 16 * ptr_size
 
@@ -794,14 +792,14 @@ Function SQLite3AccessBestIndex (byVal hVTab, byVal hIdxInfo)
 
   on error goto 0
   
-  dbg "<SQLite3AccessBestIndex", -2
+  if not objPrintProvider is Nothing then dbg "<SQLite3AccessBestIndex", -2
 end function
 
 Function SQLite3AccessDisconnect (byVal hVTab)
 'Virtual table method [xDisconnect](https://www.sqlite.org/vtab.html#xdisconnect)
   dim vTab 
   vTab = objDynamicWrapperX.numGet (hVTab, 3 * ptr_size, "p")
-  dbg ">SQLite3AccessDisconnect hVTab = [" & hVTab & "] ovTab = [" & vTab & "]", +2
+  if not objPrintProvider is Nothing then dbg ">SQLite3AccessDisconnect hVTab = [" & hVTab & "] ovTab = [" & vTab & "]", +2
   set vTab = objDynamicWrapperX.ObjGet(vTab)
   set vTab.SelfLock = Nothing
   if not vtab.TableRecordSet is nothing then
@@ -810,12 +808,12 @@ Function SQLite3AccessDisconnect (byVal hVTab)
   end if 
   objDynamicWrapperX.sqlite3_free(hVTab)
   SQLite3AccessDisconnect = SQLITE_OK
-  dbg "<SQLite3AccessDisconnect", -2
+  if not objPrintProvider is Nothing then dbg "<SQLite3AccessDisconnect", -2
 end function
 
 Function SQLite3AccessOpen (byVal hVTab, byVal hCursor)
 'Virtual table method [xOpen](https://www.sqlite.org/vtab.html#xopen)
-  dbg ">SQLite3AccessOpen hVTab = [" & hVTab & "] hCursor = [" & hCursor & "]", +2
+  if not objPrintProvider is Nothing then dbg ">SQLite3AccessOpen hVTab = [" & hVTab & "] hCursor = [" & hCursor & "]", +2
   
   dim vTab 
   vTab = objDynamicWrapperX.numGet (hVTab, 3 * ptr_size, "p")
@@ -837,7 +835,7 @@ Function SQLite3AccessOpen (byVal hVTab, byVal hCursor)
     objDynamicWrapperX.numPut rc, hCursor, 0, "p"
     SQLite3AccessOpen = SQLITE_OK
   end if
-  dbg "<SQLite3AccessOpen", -2
+  if not objPrintProvider is Nothing then dbg "<SQLite3AccessOpen", -2
 
 end function
 
@@ -845,13 +843,13 @@ end function
 Function SQLite3AccessClose (byVal hCursor)
 'Virtual table method [xClose](https://www.sqlite.org/vtab.html#xclose)
 
-  dbg ">SQLite3AccessClose hCursor = [" & hCursor & "]", +2
+  if not objPrintProvider is Nothing then dbg ">SQLite3AccessClose hCursor = [" & hCursor & "]", +2
 
   dim vCursor: set vCursor = GetCursorOject(hCursor)
   set vCursor.SelfLock = Nothing
   set vCursor.oVirtualTable = nothing
   if not isEmpty(vCursor.oRecordSet) then
-    'Закрываем только если открыли как Query
+    'Р—Р°РєСЂС‹РІР°РµРј С‚РѕР»СЊРєРѕ РµСЃР»Рё РѕС‚РєСЂС‹Р»Рё РєР°Рє Query
     if vCursor.FindByPK = 0 then vCursor.oRecordSet.close 
     set vCursor.oRecordSet = Nothing
     vCursor.oRecordSet = Empty
@@ -859,7 +857,7 @@ Function SQLite3AccessClose (byVal hCursor)
   objDynamicWrapperX.sqlite3_free(hCursor)
   SQLite3AccessClose = SQLITE_OK
 
-  dbg "<SQLite3AccessClose", -2
+  if not objPrintProvider is Nothing then dbg "<SQLite3AccessClose", -2
 end function
 
 Function SQLite3AccessFilter (byVal hCursor, byval idxNum, byVal pStr, byVal argc, byval argv)
@@ -872,7 +870,7 @@ Function SQLite3AccessFilter (byVal hCursor, byval idxNum, byVal pStr, byVal arg
     sWhere = objDynamicWrapperX.strGet(pStr,0,"UTF-8")
   end if
 
-  dbg ">SQLite3AccessFilter hCursor = [" & hCursor & "] idxNum = [" & idxNum & "] pStr = [" & pStr & ":" & sWhere & "] argc = [" & argc & "] argv = [" & argv & "]", +2
+  if not objPrintProvider is Nothing then dbg ">SQLite3AccessFilter hCursor = [" & hCursor & "] idxNum = [" & idxNum & "] pStr = [" & pStr & ":" & sWhere & "] argc = [" & argc & "] argv = [" & argv & "]", +2
 
   set vCursor = GetCursorOject(hCursor)
 
@@ -900,7 +898,7 @@ Function SQLite3AccessFilter (byVal hCursor, byval idxNum, byVal pStr, byVal arg
       sSQL = sSQL & sWhere
     end if 
   
-    dbg "SQL: " & sSQL, 0
+    if not objPrintProvider is Nothing then dbg "SQL: " & sSQL, 0
 
     vCursor.FindByPK = 0
   
@@ -910,7 +908,7 @@ Function SQLite3AccessFilter (byVal hCursor, byval idxNum, byVal pStr, byVal arg
     if err then sError = err.description
     on error goto 0
   else 
-    'Поиск по уникальному индексу
+    'РџРѕРёСЃРє РїРѕ СѓРЅРёРєР°Р»СЊРЅРѕРјСѓ РёРЅРґРµРєСЃСѓ
     dim Index
     set Index = vCursor.oVirtualTable.aIndexes(idxNum - 1)
 
@@ -920,7 +918,7 @@ Function SQLite3AccessFilter (byVal hCursor, byval idxNum, byVal pStr, byVal arg
     vCursor.FindByPK = 1
     vCursor.oRecordSet.index = Index.Name
 
-    dbg "Используется метод Seek по индексу " & Index.Name , 0
+    if not objPrintProvider is Nothing then dbg "РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РјРµС‚РѕРґ Seek РїРѕ РёРЅРґРµРєСЃСѓ " & Index.Name , 0
 
     on error resume next 
     select case Index.Count
@@ -947,18 +945,18 @@ Function SQLite3AccessFilter (byVal hCursor, byval idxNum, byVal pStr, byVal arg
     SQLite3AccessFilter = SQLITE_OK
   else 
     SQLite3AccessFilter = SQLITE_ERROR
-    dbg "Error: " & sError, 0
+    if not objPrintProvider is Nothing then dbg "Error: " & sError, 0
   end if
  
 
   'vCursor.oRecordSet.MoveFirst
 
-  dbg "<SQLite3AccessFilter", -2
+  if not objPrintProvider is Nothing then dbg "<SQLite3AccessFilter", -2
 end function
 
 Function SQLite3AccessNext (byVal hCursor)
 'Virtual table method [xNext](https://www.sqlite.org/vtab.html#xnext)    
-  dbg ">SQLite3AccessNext hCursor = [" & hCursor & "]", +2
+  if not objPrintProvider is Nothing then dbg ">SQLite3AccessNext hCursor = [" & hCursor & "]", +2
   dim vCursor: set vCursor = GetCursorOject(hCursor)
 
   SQLite3AccessNext = SQLITE_OK
@@ -972,13 +970,13 @@ Function SQLite3AccessNext (byVal hCursor)
       vCursor.oRecordSet.MoveNext      
     end if
   end if
-  dbg "<SQLite3AccessNext [" & SQLite3AccessNext & "]", -2  
+  if not objPrintProvider is Nothing then dbg "<SQLite3AccessNext [" & SQLite3AccessNext & "]", -2  
 end function
 
 
 Function SQLite3AccessEOF (byVal hCursor)
 'Virtual table method [xEOF](https://www.sqlite.org/vtab.html#xeof)    
-  dbg ">SQLite3AccessEOF hCursor = [" & hCursor & "]", +2
+  if not objPrintProvider is Nothing then dbg ">SQLite3AccessEOF hCursor = [" & hCursor & "]", +2
   dim vCursor: set vCursor = GetCursorOject(hCursor)
 
   SQLite3AccessEOF = 0
@@ -994,7 +992,7 @@ Function SQLite3AccessEOF (byVal hCursor)
     if vCursor.oRecordSet.EOF then SQLite3AccessEOF = 1
   end if
 
-  dbg "<SQLite3AccessEOF " & SQLite3AccessEOF , -2
+  if not objPrintProvider is Nothing then dbg "<SQLite3AccessEOF " & SQLite3AccessEOF , -2
 end function
 
 Function SQLite3AccessColumn (byVal hCursor, byval hContext, byval i)
@@ -1033,23 +1031,23 @@ Function SQLite3AccessColumn (byVal hCursor, byval hContext, byval i)
   End If
 
   SQLite3AccessColumn = SQLITE_OK
-  dbg " - SQLite3AccessColumn " & sDbg, -2  
+  if not objPrintProvider is Nothing then dbg " - SQLite3AccessColumn " & sDbg, -2  
 end function
 
 Function SQLite3AccessROWID (byVal hCursor, byval hROWID)
 'Virtual table method [xRowid ](https://www.sqlite.org/vtab.html#xrowid)    
-  dbg ">SQLite3AccessROWID hCursor = [" & hCursor & "] hCursor = [" & hROWID & "]", +2
+  if not objPrintProvider is Nothing then dbg ">SQLite3AccessROWID hCursor = [" & hCursor & "] hCursor = [" & hROWID & "]", +2
   dim vCursor: set vCursor = GetCursorOject(hCursor)
 
   dim id 
   id = vCursor.oRecordSet.fields(vCursor.oVirtualTable.nROWIDColumn).value
 
-  dbg "ROWID = [" & id & "]", 0 
+  if not objPrintProvider is Nothing then dbg "ROWID = [" & id & "]", 0 
 
   objDynamicWrapperX.numPut id, hROWID, 0, "m"
 
   SQLite3AccessROWID = SQLITE_OK
-  dbg "<SQLite3AccessROWID", -2  
+  if not objPrintProvider is Nothing then dbg "<SQLite3AccessROWID", -2  
 end function
 
 
@@ -1057,7 +1055,7 @@ end function
 Function SQLite3AccessUpdate  (byVal hVTab, byval argc, byval argv, byval pRowid)
 'Virtual table method [xUpdate ](https://www.sqlite.org/vtab.html#xupdate )   
    
-  dbg ">SQLite3AccessUpdate hVTab = [" & hVTab & "] argc = [" & argc & "] argv = [" & argv & "] pRowid = [" & pRowid & "]", +2
+  if not objPrintProvider is Nothing then dbg ">SQLite3AccessUpdate hVTab = [" & hVTab & "] argc = [" & argc & "] argv = [" & argv & "] pRowid = [" & pRowid & "]", +2
   dim vTab, objRecordSet, sSQL, value, sError
   sError = ""
   vTab = objDynamicWrapperX.numGet (hVTab, 3 * ptr_size, "p")
@@ -1069,13 +1067,13 @@ Function SQLite3AccessUpdate  (byVal hVTab, byval argc, byval argv, byval pRowid
   if isEmpty(vTab.nROWIDColumn) or argc = 0 then 
     SQLite3AccessUpdate = SQLITE_READONLY
 
-    dbg "Строка не может быть обновлена", 0
+    if not objPrintProvider is Nothing then dbg "РЎС‚СЂРѕРєР° РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РѕР±РЅРѕРІР»РµРЅР°", 0
 
   else  
   
     rowid = SQLite3_Value(GetVArr(argv, 0))
 
-    dbg " CanSeek = [" & vTab.CanSeek & "] rowid = [" & rowid & "] vTab.sTableName = [" & vTab.sTableName & "]", 0
+    if not objPrintProvider is Nothing then dbg " CanSeek = [" & vTab.CanSeek & "] rowid = [" & rowid & "] vTab.sTableName = [" & vTab.sTableName & "]", 0
 
     if vTab.CanSeek then 
       on error resume next
@@ -1085,9 +1083,9 @@ Function SQLite3AccessUpdate  (byVal hVTab, byval argc, byval argv, byval pRowid
       if sError = "" then
         set objRecordSet = vTab.TableRecordSet
         if isNull(rowid) then 
-          dbg "Открыта таблица", 0
+          if not objPrintProvider is Nothing then dbg "РћС‚РєСЂС‹С‚Р° С‚Р°Р±Р»РёС†Р°", 0
         else 
-          dbg "Поиск строки через индекс " & vTab.primaryKeyIndex.Name & ": " & rowid, 0
+          if not objPrintProvider is Nothing then dbg "РџРѕРёСЃРє СЃС‚СЂРѕРєРё С‡РµСЂРµР· РёРЅРґРµРєСЃ " & vTab.primaryKeyIndex.Name & ": " & rowid, 0
           objRecordSet.index = vTab.primaryKeyIndex.Name
           objRecordSet.seek "=", rowid  
           if objRecordSet.NoMatch then SQLite3AccessUpdate = SQLITE_NOTFOUND 
@@ -1095,7 +1093,7 @@ Function SQLite3AccessUpdate  (byVal hVTab, byval argc, byval argv, byval pRowid
       end if
     else 
       if isNull(rowid) then 
-        dbg "Открыта таблица", 0
+        if not objPrintProvider is Nothing then dbg "РћС‚РєСЂС‹С‚Р° С‚Р°Р±Р»РёС†Р°", 0
         on error resume next
         set objRecordSet = vTab.oConnection.openRecordset(vTab.sTableName)
         if err then sError = err.description 
@@ -1104,7 +1102,7 @@ Function SQLite3AccessUpdate  (byVal hVTab, byval argc, byval argv, byval pRowid
         if varType(rowid)=vbString then rowid = "'"  & replace(rowid, "'", "''") & "'"
         sSQL = "select * from [" & vTab.sTableName & "] where [" & vTab.nROWIDColumn & "] = " & rowid
   
-        dbg "Поиск строки через запрос " & sSQL, 0
+        if not objPrintProvider is Nothing then dbg "РџРѕРёСЃРє СЃС‚СЂРѕРєРё С‡РµСЂРµР· Р·Р°РїСЂРѕСЃ " & sSQL, 0
         on error resume next
         if not isNull(rowid) and objRecordSet.EOF then SQLite3AccessUpdate = SQLITE_NOTFOUND
         if err then sError = err.description 
@@ -1114,7 +1112,7 @@ Function SQLite3AccessUpdate  (byVal hVTab, byval argc, byval argv, byval pRowid
 
     if sError <> "" then 
       vTab.setError sError
-      dbg "Ошибка ["&sError&"]",0 
+      if not objPrintProvider is Nothing then dbg "РћС€РёР±РєР° ["&sError&"]",0 
       SQLite3AccessUpdate = SQLITE_Error
     end if
   
@@ -1131,14 +1129,14 @@ Function SQLite3AccessUpdate  (byVal hVTab, byval argc, byval argv, byval pRowid
 
           objDynamicWrapperX.numPut rowid, pRowid, 0, "q" 
 
-          dbg "Создана новая строка: " & rowid, 0
+          if not objPrintProvider is Nothing then dbg "РЎРѕР·РґР°РЅР° РЅРѕРІР°СЏ СЃС‚СЂРѕРєР°: " & rowid, 0
         else 
           value = SQLite3_Value(GetVArr(argv, 1))
 
           objRecordSet.Edit
 
           if value <> rowid then  
-            'dbg "Обновление ключевого поля: " & rowid & " -> " & value, 0
+            'dbg "РћР±РЅРѕРІР»РµРЅРёРµ РєР»СЋС‡РµРІРѕРіРѕ РїРѕР»СЏ: " & rowid & " -> " & value, 0
             'objRecordSet.Fields(vTab.nROWIDColumn).value = value
              SQLite3AccessUpdate = SQLITE_READONLY
           end if
@@ -1146,23 +1144,23 @@ Function SQLite3AccessUpdate  (byVal hVTab, byval argc, byval argv, byval pRowid
         end if
 
         if SQLite3AccessUpdate = SQLITE_OK then 
-          dbg "Обновление строки: " & rowid, 0
+          if not objPrintProvider is Nothing then dbg "РћР±РЅРѕРІР»РµРЅРёРµ СЃС‚СЂРѕРєРё: " & rowid, 0
   
           dim sColumn, i
           for i = 2 to argc - 1 
             sColumn = vTab.aFields(i - 2)(0)
   
-            dbg " #" & sColumn, 0
+            if not objPrintProvider is Nothing then dbg " #" & sColumn, 0
   
             'if sColumn <> vTab.nROWIDColumn then 
             If ((vTab.aFields(i - 2)(2)) And dbAutoIncrField) = dbAutoIncrField Then
               value = SQLite3_Value(GetVArr(argv, i))
-              if not isNull (value) and not  objRecordSet.Fields(vTab.aFields(i - 2)(0)).value = value then sError = "Ключевое поле не обновляется"
+              if not isNull (value) and not  objRecordSet.Fields(vTab.aFields(i - 2)(0)).value = value then sError = "РљР»СЋС‡РµРІРѕРµ РїРѕР»Рµ РЅРµ РѕР±РЅРѕРІР»СЏРµС‚СЃСЏ"
             else 
               objRecordSet.Fields(vTab.aFields(i - 2)(0)).value = SQLite3_Value(GetVArr(argv, i))
             end if
             'elseif objRecordSet.Fields(vTab.aFields(i - 2)(0)).value <> SQLite3_Value(GetVArr(argv, i)) then
-            '  dbg "Обновление ключевого поля не поддерживается", 0
+            '  dbg "РћР±РЅРѕРІР»РµРЅРёРµ РєР»СЋС‡РµРІРѕРіРѕ РїРѕР»СЏ РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚СЃСЏ", 0
             'end if
           next
 
@@ -1175,7 +1173,7 @@ Function SQLite3AccessUpdate  (byVal hVTab, byval argc, byval argv, byval pRowid
 
           if sError <> "" then 
             vTab.setError sError
-            dbg "Ошибка ["&sError&"]",0 
+            if not objPrintProvider is Nothing then dbg "РћС€РёР±РєР° ["&sError&"]",0 
             SQLite3AccessUpdate = SQLITE_Error
           end if 
         end if
@@ -1183,19 +1181,19 @@ Function SQLite3AccessUpdate  (byVal hVTab, byval argc, byval argv, byval pRowid
     end if
 
   end if
-  dbg "<SQLite3AccessUpdate " & SQLite3AccessUpdate, -2  
+  if not objPrintProvider is Nothing then dbg "<SQLite3AccessUpdate " & SQLite3AccessUpdate, -2  
 end function
 
 
 
 
 
-'Собираем дескриптор модуля
+'РЎРѕР±РёСЂР°РµРј РґРµСЃРєСЂРёРїС‚РѕСЂ РјРѕРґСѓР»СЏ
 dim AccessConnector, ptr_size, sDbgInfo, ptr
 ptr_size = objDynamicWrapperX.Bitness() / 8
 AccessConnector = objDynamicWrapperX.MemAlloc(4 * 24, 1)
 pPtr = AccessConnector
-'номер версии - 0
+'РЅРѕРјРµСЂ РІРµСЂСЃРёРё - 0
 objDynamicWrapperX.NumPut 0, AccessConnector, 0, "l"
 objDynamicWrapperX.NumPut objDynamicWrapperX.RegisterCallback(GetRef("SQLite3AccessCreate"), "i=pplppp", "r=l", "f=c"), AccessConnector, 1 * ptr_size, "p"
 objDynamicWrapperX.NumPut objDynamicWrapperX.RegisterCallback(GetRef("SQLite3AccessConnect"), "i=pplppp", "r=l", "f=c"), AccessConnector, 2 * ptr_size, "p"
@@ -1210,7 +1208,7 @@ objDynamicWrapperX.NumPut objDynamicWrapperX.RegisterCallback(GetRef("SQLite3Acc
 objDynamicWrapperX.NumPut objDynamicWrapperX.RegisterCallback(GetRef("SQLite3AccessColumn"), "i=ppl", "r=l", "f=c"), AccessConnector, 11 * ptr_size, "p"
 objDynamicWrapperX.NumPut objDynamicWrapperX.RegisterCallback(GetRef("SQLite3AccessROWID"), "i=pp", "r=l", "f=c"), AccessConnector, 12 * ptr_size, "p"
 objDynamicWrapperX.NumPut objDynamicWrapperX.RegisterCallback(GetRef("SQLite3AccessUpdate"), "i=plpp", "r=l", "f=c"), AccessConnector, 13 * ptr_size, "p"
-'Остальные поля не заполняются
+'РћСЃС‚Р°Р»СЊРЅС‹Рµ РїРѕР»СЏ РЅРµ Р·Р°РїРѕР»РЅСЏСЋС‚СЃСЏ
 
 Sub FreeResource()
   objDynamicWrapperX.MemFree AccessConnector
@@ -1219,41 +1217,41 @@ end sub
 '*DOC*:ORDER 10000 
 
 class SQLite_Connection
-'Основное подключение к Бд SQLite
+'РћСЃРЅРѕРІРЅРѕРµ РїРѕРґРєР»СЋС‡РµРЅРёРµ Рє Р‘Рґ SQLite
 
   public hDB, Application, Wrapper
   private  oDataBases
 
   public default function Open(dbName)
-  'Открывает новуое подключение к БД 
-  '#param dbName - Путь до файла с базой данных. 
-  ' {*} :memory: - Специальное имя, для открытия пустой БД в памяти
+  'РћС‚РєСЂС‹РІР°РµС‚ РЅРѕРІСѓРѕРµ РїРѕРґРєР»СЋС‡РµРЅРёРµ Рє Р‘Р” 
+  '#param dbName - РџСѓС‚СЊ РґРѕ С„Р°Р№Р»Р° СЃ Р±Р°Р·РѕР№ РґР°РЅРЅС‹С…. 
+  ' {*} :memory: - РЎРїРµС†РёР°Р»СЊРЅРѕРµ РёРјСЏ, РґР»СЏ РѕС‚РєСЂС‹С‚РёСЏ РїСѓСЃС‚РѕР№ Р‘Р” РІ РїР°РјСЏС‚Рё
 
     dim idResult, sError
-    dbg ">SQLiteConnection. Open [" & dbName & "]", +2
+    if not objPrintProvider is Nothing then dbg ">SQLiteConnection. Open [" & dbName & "]", +2
     if not (isEmpty(hDB) or hDB = 0) then close
     idResult = objDynamicWrapperX.sqlite3_open16 (dbName & "", hDB)
     if idResult <> SQLITE_OK then 
       sError = errmsg
       objDynamicWrapperX.sqlite3_close(hDB)
       
-      dbg "Fail [" & sError & "]", 0
-      dbg "<SQLiteConnection", -2
+      if not objPrintProvider is Nothing then dbg "Fail [" & sError & "]", 0
+      if not objPrintProvider is Nothing then dbg "<SQLiteConnection", -2
 
-      err_raise "SQLLite. Не удалось открыть базу данных " & dbName & vbCrlf & sError
+      err_raise "SQLLite. РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ Р±Р°Р·Сѓ РґР°РЅРЅС‹С… " & dbName & vbCrlf & sError
     end if
     set open = Me
-    dbg "<SQLiteConnection", -2
+    if not objPrintProvider is Nothing then dbg "<SQLiteConnection", -2
   end function
 
   public Function AttachAccessDB(oAccessDB, byval spAlias)
-  'Добавляет возможность подключать к БД SQLite таблицы Access как виртуальные, а так же сохраняет внутри ссылку на подключение
-  '#param oAccessDB - Ссылка на объект БД 
-  '#param spAlias - алиас для подключения, передайте пустую строку для основного подключения
+  'Р”РѕР±Р°РІР»СЏРµС‚ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РїРѕРґРєР»СЋС‡Р°С‚СЊ Рє Р‘Р” SQLite С‚Р°Р±Р»РёС†С‹ Access РєР°Рє РІРёСЂС‚СѓР°Р»СЊРЅС‹Рµ, Р° С‚Р°Рє Р¶Рµ СЃРѕС…СЂР°РЅСЏРµС‚ РІРЅСѓС‚СЂРё СЃСЃС‹Р»РєСѓ РЅР° РїРѕРґРєР»СЋС‡РµРЅРёРµ
+  '#param oAccessDB - РЎСЃС‹Р»РєР° РЅР° РѕР±СЉРµРєС‚ Р‘Р” 
+  '#param spAlias - Р°Р»РёР°СЃ РґР»СЏ РїРѕРґРєР»СЋС‡РµРЅРёСЏ, РїРµСЂРµРґР°Р№С‚Рµ РїСѓСЃС‚СѓСЋ СЃС‚СЂРѕРєСѓ РґР»СЏ РѕСЃРЅРѕРІРЅРѕРіРѕ РїРѕРґРєР»СЋС‡РµРЅРёСЏ
 
-    dbg "> AttachAccessDB = meRef[" & objDynamicWrapperX.ObjPtr(Me) & "]", + 2
+    if not objPrintProvider is Nothing then dbg "> AttachAccessDB = meRef[" & objDynamicWrapperX.ObjPtr(Me) & "]", + 2
 
-    if isEmpty(hDB) then err_raise "SQLLite. Сначала необходимо открыть БД"
+    if isEmpty(hDB) then err_raise "SQLLite. РЎРЅР°С‡Р°Р»Р° РЅРµРѕР±С…РѕРґРёРјРѕ РѕС‚РєСЂС‹С‚СЊ Р‘Р”"
 
     if IsEmpty(oDataBases) then 
       set oDataBases = CreateObject("Scripting.Dictionary")
@@ -1263,25 +1261,25 @@ class SQLite_Connection
 
       dim rc
       rc = objDynamicWrapperX.sqlite3_create_module_v2 (hDB, objDynamicWrapperX.StrPtr("access","UTF-8"), AccessConnector, objDynamicWrapperX.ObjPtr(me), 0)
-      dbg "sqlite3_create_module_v2 = [" & rc & "]", 0
+      if not objPrintProvider is Nothing then dbg "sqlite3_create_module_v2 = [" & rc & "]", 0
     end if
 
     if spAlias = "" then spAlias = "current"
  
     if oDataBases.exists(spAlias) then 
-      dbg "<AttachAccessDB. база данных с именем [" & spAlias & "] уже зарегистрирована", -2
-      err_raise "SQLLite. база данных с именем [" & spAlias & "] уже зарегистрирована" 
+      if not objPrintProvider is Nothing then dbg "<AttachAccessDB. Р±Р°Р·Р° РґР°РЅРЅС‹С… СЃ РёРјРµРЅРµРј [" & spAlias & "] СѓР¶Рµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅР°", -2
+      err_raise "SQLLite. Р±Р°Р·Р° РґР°РЅРЅС‹С… СЃ РёРјРµРЅРµРј [" & spAlias & "] СѓР¶Рµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅР°" 
     else 
       oDataBases.add spAlias, oAccessDB 
     end if
-    dbg "<AttachAccessDB", -2
+    if not objPrintProvider is Nothing then dbg "<AttachAccessDB", -2
   end function
 
   Public Function GetAccessDB(byval spAlias)
-  'Возвращает объект подключения к БД Access по ранее заданному алиасу
-  '#param spAlias - алиас для подключения
+  'Р’РѕР·РІСЂР°С‰Р°РµС‚ РѕР±СЉРµРєС‚ РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє Р‘Р” Access РїРѕ СЂР°РЅРµРµ Р·Р°РґР°РЅРЅРѕРјСѓ Р°Р»РёР°СЃСѓ
+  '#param spAlias - Р°Р»РёР°СЃ РґР»СЏ РїРѕРґРєР»СЋС‡РµРЅРёСЏ
 
-    dbg "> GetAccessDB = [" & spAlias & "]", + 2
+    if not objPrintProvider is Nothing then dbg "> GetAccessDB = [" & spAlias & "]", + 2
     if spAlias = "" then spAlias = "current"
     if IsEmpty(oDataBases) then 
       set GetAccessDB = Nothing
@@ -1290,11 +1288,11 @@ class SQLite_Connection
     else 
       set GetAccessDB = Nothing
     end if
-    dbg "< GetAccessDB", - 2
+    if not objPrintProvider is Nothing then dbg "< GetAccessDB", - 2
   end function
 
   public function close()
-  'Закрывает открытое подключение
+  'Р—Р°РєСЂС‹РІР°РµС‚ РѕС‚РєСЂС‹С‚РѕРµ РїРѕРґРєР»СЋС‡РµРЅРёРµ
 
     if not isEmpty(hDB) then 
       objDynamicWrapperX.sqlite3_close(hDB)
@@ -1308,26 +1306,26 @@ class SQLite_Connection
 
   
   public sub Execute(sSQL)
- 'Выполняет запрос на изменение или запускает инструкцию SQL
- '#param sSQL - Запрос 
+ 'Р’С‹РїРѕР»РЅСЏРµС‚ Р·Р°РїСЂРѕСЃ РЅР° РёР·РјРµРЅРµРЅРёРµ РёР»Рё Р·Р°РїСѓСЃРєР°РµС‚ РёРЅСЃС‚СЂСѓРєС†РёСЋ SQL
+ '#param sSQL - Р—Р°РїСЂРѕСЃ 
 
     dim hStmt, idResult
     'hStmt = objDynamicWrapperX.MemAlloc(4,1)
     idResult = objDynamicWrapperX.sqlite3_prepare16_v2(hDB, sSQL, -1, hStmt, 0)
-    if idResult <> SQLITE_OK then err_raise "SQLLite.Prepare. Не удалось выполнить запрос " & sSQL & vbCrlf & "[" & idResult & "]" & errmsg()
+    if idResult <> SQLITE_OK then err_raise "SQLLite.Prepare. РќРµ СѓРґР°Р»РѕСЃСЊ РІС‹РїРѕР»РЅРёС‚СЊ Р·Р°РїСЂРѕСЃ " & sSQL & vbCrlf & "[" & idResult & "]" & errmsg()
     idResult = objDynamicWrapperX.sqlite3_step(hStmt)
-    if not (idResult = SQLITE_DONE or idResult = SQLITE_ROW) then err_raise "SQLLite.Step. Не удалось выполнить запрос " & sSQL & vbCrlf & errmsg
+    if not (idResult = SQLITE_DONE or idResult = SQLITE_ROW) then err_raise "SQLLite.Step. РќРµ СѓРґР°Р»РѕСЃСЊ РІС‹РїРѕР»РЅРёС‚СЊ Р·Р°РїСЂРѕСЃ " & sSQL & vbCrlf & errmsg
     idResult = objDynamicWrapperX.sqlite3_finalize(hStmt)
-    if idResult <> SQLITE_OK then err_raise "SQLLite.Finalize. Не удалось выполнить запрос " & sSQL & vbCrlf & errmsg
+    if idResult <> SQLITE_OK then err_raise "SQLLite.Finalize. РќРµ СѓРґР°Р»РѕСЃСЊ РІС‹РїРѕР»РЅРёС‚СЊ Р·Р°РїСЂРѕСЃ " & sSQL & vbCrlf & errmsg
   end sub  
 
   public function last_insert_rowid()
-  'Возвращает Id последней команды insert
+  'Р’РѕР·РІСЂР°С‰Р°РµС‚ Id РїРѕСЃР»РµРґРЅРµР№ РєРѕРјР°РЅРґС‹ insert
     last_insert_rowid = objDynamicWrapperX.sqlite3_last_insert_rowid(hDB)
   end function
 
   public function libversion()
-  'Возвращает версию библиотеки DLL
+  'Р’РѕР·РІСЂР°С‰Р°РµС‚ РІРµСЂСЃРёСЋ Р±РёР±Р»РёРѕС‚РµРєРё DLL
     libversion = objDynamicWrapperX.sqlite3_libversion()
   end function
 
@@ -1336,8 +1334,8 @@ class SQLite_Connection
   End Sub  
 
   public Function PrepareSQL (sSQL) 
-  'Формирует подготовленный запрос для указанного выражения и возвращает экземпляр объекта [SQLite_Prepared](#class_SQLite_Prepared) 
-  '#param sSQL - Запрос 
+  'Р¤РѕСЂРјРёСЂСѓРµС‚ РїРѕРґРіРѕС‚РѕРІР»РµРЅРЅС‹Р№ Р·Р°РїСЂРѕСЃ РґР»СЏ СѓРєР°Р·Р°РЅРЅРѕРіРѕ РІС‹СЂР°Р¶РµРЅРёСЏ Рё РІРѕР·РІСЂР°С‰Р°РµС‚ СЌРєР·РµРјРїР»СЏСЂ РѕР±СЉРµРєС‚Р° [SQLite_Prepared](#class_SQLite_Prepared) 
+  '#param sSQL - Р—Р°РїСЂРѕСЃ 
  
     dim oStmt
     set oStmt = new  SQLite_Prepared
@@ -1346,9 +1344,9 @@ class SQLite_Connection
   end function 
 
   Public Function OpenRecordSet (spSQL, pDummy)
-  'Открывает набор данных для указанного выражения и возвращает экземпляр объекта [SQLite_Recordset](#class_SQLite_Recordset) 
-  '#param sSQL - Запрос 
-  '#param pDummy - Не используется 
+  'РћС‚РєСЂС‹РІР°РµС‚ РЅР°Р±РѕСЂ РґР°РЅРЅС‹С… РґР»СЏ СѓРєР°Р·Р°РЅРЅРѕРіРѕ РІС‹СЂР°Р¶РµРЅРёСЏ Рё РІРѕР·РІСЂР°С‰Р°РµС‚ СЌРєР·РµРјРїР»СЏСЂ РѕР±СЉРµРєС‚Р° [SQLite_Recordset](#class_SQLite_Recordset) 
+  '#param sSQL - Р—Р°РїСЂРѕСЃ 
+  '#param pDummy - РќРµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ 
 
     dim oStmt
     if spSQL & "" = "" then 
@@ -1361,22 +1359,22 @@ class SQLite_Connection
   end function 
   
   Public function errmsg()
-  'Возвращает последнее сообщение об ошибке
+  'Р’РѕР·РІСЂР°С‰Р°РµС‚ РїРѕСЃР»РµРґРЅРµРµ СЃРѕРѕР±С‰РµРЅРёРµ РѕР± РѕС€РёР±РєРµ
     errmsg = objDynamicWrapperX.strGet(objDynamicWrapperX.sqlite3_errmsg(hDB),0,"UTF-8")
   end function 
 
 end class
 
 class SQLite_Prepared
-'Подготовленное выражение. За счет того что не формируется новый план, должен работать быстрее
+'РџРѕРґРіРѕС‚РѕРІР»РµРЅРЅРѕРµ РІС‹СЂР°Р¶РµРЅРёРµ. Р—Р° СЃС‡РµС‚ С‚РѕРіРѕ С‡С‚Рѕ РЅРµ С„РѕСЂРјРёСЂСѓРµС‚СЃСЏ РЅРѕРІС‹Р№ РїР»Р°РЅ, РґРѕР»Р¶РµРЅ СЂР°Р±РѕС‚Р°С‚СЊ Р±С‹СЃС‚СЂРµРµ
 
   dim hStmt, hDB, SQL, oConnection
 
 
   public sub init(pConnection, sSQl)
-  'Инициализщирует новое подготовленное подключение
-  '#param pConnection - ссылка на подключение [SQLite_Connection](#class_SQLite_Connection)
-  '#param sSQL - Запрос. для подстановки параметров используйте символ '$1', '$2', ...
+  'РРЅРёС†РёР°Р»РёР·С‰РёСЂСѓРµС‚ РЅРѕРІРѕРµ РїРѕРґРіРѕС‚РѕРІР»РµРЅРЅРѕРµ РїРѕРґРєР»СЋС‡РµРЅРёРµ
+  '#param pConnection - СЃСЃС‹Р»РєР° РЅР° РїРѕРґРєР»СЋС‡РµРЅРёРµ [SQLite_Connection](#class_SQLite_Connection)
+  '#param sSQL - Р—Р°РїСЂРѕСЃ. РґР»СЏ РїРѕРґСЃС‚Р°РЅРѕРІРєРё РїР°СЂР°РјРµС‚СЂРѕРІ РёСЃРїРѕР»СЊР·СѓР№С‚Рµ СЃРёРјРІРѕР» '$1', '$2', ...
 
     dim idResult
     if not isEmpty(hStmt) then close
@@ -1389,8 +1387,8 @@ class SQLite_Prepared
 
 
   public sub ExecuteByDic(tpDic)
-  'Выполняет запрос. Параметры передаются в виде словаря. 
-  '#param tpDic - Словарь с параметрами. Принимаются только ключи, которые начинаются с символа `$`
+  'Р’С‹РїРѕР»РЅСЏРµС‚ Р·Р°РїСЂРѕСЃ. РџР°СЂР°РјРµС‚СЂС‹ РїРµСЂРµРґР°СЋС‚СЃСЏ РІ РІРёРґРµ СЃР»РѕРІР°СЂСЏ. 
+  '#param tpDic - РЎР»РѕРІР°СЂСЊ СЃ РїР°СЂР°РјРµС‚СЂР°РјРё. РџСЂРёРЅРёРјР°СЋС‚СЃСЏ С‚РѕР»СЊРєРѕ РєР»СЋС‡Рё, РєРѕС‚РѕСЂС‹Рµ РЅР°С‡РёРЅР°СЋС‚СЃСЏ СЃ СЃРёРјРІРѕР»Р° `$`
 
     dim i, idResult, index, aParam, key, value
     aParam = tpDic.keys
@@ -1402,34 +1400,34 @@ class SQLite_Prepared
           value = tpDic(key) 
           if isNull(value) or isEmpty(value) then 
             idResult = objDynamicWrapperX.sqlite3_bind_null(hStmt, index)
-            if idResult <> SQLITE_OK then err_raise "SQLLite.Prepared Bind Null. Не удалось забиндить параметр " & (index) &  vbCrlf & oConnection.errmsg
+            if idResult <> SQLITE_OK then err_raise "SQLLite.Prepared Bind Null. РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°Р±РёРЅРґРёС‚СЊ РїР°СЂР°РјРµС‚СЂ " & (index) &  vbCrlf & oConnection.errmsg
           ElseIf vartype(value) = 11 then ''vbBoolean  
             if value then 
               idResult = objDynamicWrapperX.sqlite3_bind_int(hStmt, index, 1)
             else 
               idResult = objDynamicWrapperX.sqlite3_bind_int(hStmt, index, 0)
             end if
-            if idResult <> SQLITE_OK then err_raise "SQLLite.Prepared Bind Boolean. Не удалось забиндить параметр " & (index) &  vbCrlf & oConnection.errmsg
+            if idResult <> SQLITE_OK then err_raise "SQLLite.Prepared Bind Boolean. РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°Р±РёРЅРґРёС‚СЊ РїР°СЂР°РјРµС‚СЂ " & (index) &  vbCrlf & oConnection.errmsg
           ElseIf vartype(value) = 2 or vartype(value) = 3 then ''vbInteger vbLong   
             idResult = objDynamicWrapperX.sqlite3_bind_int(hStmt, index, value)
-            if idResult <> SQLITE_OK then err_raise "SQLLite.Prepared Bind Integer. Не удалось забиндить параметр " & (index) &  vbCrlf & oConnection.errmsg
+            if idResult <> SQLITE_OK then err_raise "SQLLite.Prepared Bind Integer. РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°Р±РёРЅРґРёС‚СЊ РїР°СЂР°РјРµС‚СЂ " & (index) &  vbCrlf & oConnection.errmsg
           ElseIf vartype(value) = 4 or vartype(value) = 5 or vartype(value) = 6 or vartype(avalue) = 7 then ''vbSingle  vbDouble vbCurrency vbDate       
             idResult = objDynamicWrapperX.sqlite3_bind_double(hStmt, index, value)
-            if idResult <> SQLITE_OK then err_raise "SQLLite.Prepared Bind Double. Не удалось забиндить параметр " & (index) &  vbCrlf & oConnection.errmsg
+            if idResult <> SQLITE_OK then err_raise "SQLLite.Prepared Bind Double. РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°Р±РёРЅРґРёС‚СЊ РїР°СЂР°РјРµС‚СЂ " & (index) &  vbCrlf & oConnection.errmsg
           else 
             idResult = objDynamicWrapperX.sqlite3_bind_text16(hStmt, index, value, -1)
-            if idResult <> SQLITE_OK then err_raise "SQLLite.Prepared Bind Text. Не удалось забиндить параметр " & (index) &  vbCrlf & oConnection.errmsg
+            if idResult <> SQLITE_OK then err_raise "SQLLite.Prepared Bind Text. РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°Р±РёРЅРґРёС‚СЊ РїР°СЂР°РјРµС‚СЂ " & (index) &  vbCrlf & oConnection.errmsg
           end if
         end if
       end if
     next
     idResult = objDynamicWrapperX.sqlite3_step(hStmt)
-    if not(idResult = SQLITE_ROW or  idResult = SQLITE_DONE) then err_raise "SQLLite.Execute. Не удалось выполнить запрос" & vbCrlf & oConnection.errmsg
+    if not(idResult = SQLITE_ROW or  idResult = SQLITE_DONE) then err_raise "SQLLite.Execute. РќРµ СѓРґР°Р»РѕСЃСЊ РІС‹РїРѕР»РЅРёС‚СЊ Р·Р°РїСЂРѕСЃ" & vbCrlf & oConnection.errmsg
   end sub
   
   public sub Execute(aParam)
-  'Выполняет запрос. Параметры передаются в виде массива. 
-  '#param aParam - Массив с параметрами
+  'Р’С‹РїРѕР»РЅСЏРµС‚ Р·Р°РїСЂРѕСЃ. РџР°СЂР°РјРµС‚СЂС‹ РїРµСЂРµРґР°СЋС‚СЃСЏ РІ РІРёРґРµ РјР°СЃСЃРёРІР°. 
+  '#param aParam - РњР°СЃСЃРёРІ СЃ РїР°СЂР°РјРµС‚СЂР°РјРё
 
     dim i, idResult, index
     idResult = objDynamicWrapperX.sqlite3_reset(hStmt)
@@ -1438,35 +1436,35 @@ class SQLite_Prepared
       if index > 0 then 
         if isNull(aParam(i)) or isEmpty(aParam(i)) then 
           idResult = objDynamicWrapperX.sqlite3_bind_null(hStmt, index)
-          if idResult <> SQLITE_OK then err_raise "SQLLite.Prepared Bind Null. Не удалось забиндить параметр " & (index) &  vbCrlf & oConnection.errmsg
+          if idResult <> SQLITE_OK then err_raise "SQLLite.Prepared Bind Null. РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°Р±РёРЅРґРёС‚СЊ РїР°СЂР°РјРµС‚СЂ " & (index) &  vbCrlf & oConnection.errmsg
         ElseIf vartype(aParam(i)) = 11 then ''vbBoolean  
           if aParam(i) then 
             idResult = objDynamicWrapperX.sqlite3_bind_int(hStmt, index, 1)
           else 
             idResult = objDynamicWrapperX.sqlite3_bind_int(hStmt, index, 0)
           end if
-          if idResult <> SQLITE_OK then err_raise "SQLLite.Prepared Bind Boolean. Не удалось забиндить параметр " & (index) &  vbCrlf & oConnection.errmsg
+          if idResult <> SQLITE_OK then err_raise "SQLLite.Prepared Bind Boolean. РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°Р±РёРЅРґРёС‚СЊ РїР°СЂР°РјРµС‚СЂ " & (index) &  vbCrlf & oConnection.errmsg
         ElseIf vartype(aParam(i)) = 2 or vartype(aParam(i)) = 3 then ''vbInteger vbLong   
           idResult = objDynamicWrapperX.sqlite3_bind_int(hStmt, index, aParam(i))
-          if idResult <> SQLITE_OK then err_raise "SQLLite.Prepared Bind Integer. Не удалось забиндить параметр " & (index) &  vbCrlf & oConnection.errmsg
+          if idResult <> SQLITE_OK then err_raise "SQLLite.Prepared Bind Integer. РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°Р±РёРЅРґРёС‚СЊ РїР°СЂР°РјРµС‚СЂ " & (index) &  vbCrlf & oConnection.errmsg
         ElseIf vartype(aParam(i)) = 4 or vartype(aParam(i)) = 5 or vartype(aParam(i)) = 6 or vartype(aParam(i)) = 7 then ''vbSingle  vbDouble vbCurrency vbDate       
           idResult = objDynamicWrapperX.sqlite3_bind_double(hStmt, index, aParam(i))
-          if idResult <> SQLITE_OK then err_raise "SQLLite.Prepared Bind Double. Не удалось забиндить параметр " & (index) &  vbCrlf & oConnection.errmsg
+          if idResult <> SQLITE_OK then err_raise "SQLLite.Prepared Bind Double. РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°Р±РёРЅРґРёС‚СЊ РїР°СЂР°РјРµС‚СЂ " & (index) &  vbCrlf & oConnection.errmsg
         else 
           idResult = objDynamicWrapperX.sqlite3_bind_text16(hStmt, index, aParam(i), -1)
-          if idResult <> SQLITE_OK then err_raise "SQLLite.Prepared Bind Text. Не удалось забиндить параметр " & (index) &  vbCrlf & oConnection.errmsg
+          if idResult <> SQLITE_OK then err_raise "SQLLite.Prepared Bind Text. РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°Р±РёРЅРґРёС‚СЊ РїР°СЂР°РјРµС‚СЂ " & (index) &  vbCrlf & oConnection.errmsg
         end if
       end if
     next
     idResult = objDynamicWrapperX.sqlite3_step(hStmt)
-    if not(idResult = SQLITE_ROW or  idResult = SQLITE_DONE) then err_raise "SQLLite.Execute. Не удалось выполнить запрос" & vbCrlf & oConnection.errmsg
+    if not(idResult = SQLITE_ROW or  idResult = SQLITE_DONE) then err_raise "SQLLite.Execute. РќРµ СѓРґР°Р»РѕСЃСЊ РІС‹РїРѕР»РЅРёС‚СЊ Р·Р°РїСЂРѕСЃ" & vbCrlf & oConnection.errmsg
   end sub
 
   public sub close()
-    'Закрывает подготовленный запрос и освобождает ресурсы
+    'Р—Р°РєСЂС‹РІР°РµС‚ РїРѕРґРіРѕС‚РѕРІР»РµРЅРЅС‹Р№ Р·Р°РїСЂРѕСЃ Рё РѕСЃРІРѕР±РѕР¶РґР°РµС‚ СЂРµСЃСѓСЂСЃС‹
     if not isEmpty(hStmt) then 
       idResult = objDynamicWrapperX.sqlite3_finalize(hStmt)
-      if idResult <> SQLITE_OK then err_raise "SQLLite.Finalize. Не удалось завершить запрос " & sSQL & vbCrlf & oConnection.errmsg
+      if idResult <> SQLITE_OK then err_raise "SQLLite.Finalize. РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°РІРµСЂС€РёС‚СЊ Р·Р°РїСЂРѕСЃ " & sSQL & vbCrlf & oConnection.errmsg
       hStmt = Empty
     end if
     set oConnection = Nothing
@@ -1480,17 +1478,17 @@ end class
 
 
 class SQLite_Recordset
-'Объект представляет записи, получаемые в результате выполнения запросов. 
+'РћР±СЉРµРєС‚ РїСЂРµРґСЃС‚Р°РІР»СЏРµС‚ Р·Р°РїРёСЃРё, РїРѕР»СѓС‡Р°РµРјС‹Рµ РІ СЂРµР·СѓР»СЊС‚Р°С‚Рµ РІС‹РїРѕР»РЅРµРЅРёСЏ Р·Р°РїСЂРѕСЃРѕРІ. 
 
   dim hStmt, oConnection
   public Fields
   
   public function Open(spSQL, pConnection, dummy1, dummy2)
-  'Инициализирует набор даннных по запросу
-  '#param sSQL - Запрос 
-  '#param pConnection - ссылка на подключение [SQLite_Connection](#class_SQLite_Connection)
-  '#param dummy1 - Не используется 
-  '#param dummy2 - Не используется 
+  'РРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚ РЅР°Р±РѕСЂ РґР°РЅРЅРЅС‹С… РїРѕ Р·Р°РїСЂРѕСЃСѓ
+  '#param sSQL - Р—Р°РїСЂРѕСЃ 
+  '#param pConnection - СЃСЃС‹Р»РєР° РЅР° РїРѕРґРєР»СЋС‡РµРЅРёРµ [SQLite_Connection](#class_SQLite_Connection)
+  '#param dummy1 - РќРµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ 
+  '#param dummy2 - РќРµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ 
    
     dim idResult
     set oConnection = pConnection
@@ -1501,7 +1499,7 @@ class SQLite_Recordset
     'hStmt = objDynamicWrapperX.MemAlloc(4,1)    
     idResult = objDynamicWrapperX.sqlite3_prepare16_v2(pConnection.hDB, spSQL & "", -1, hStmt, 0)
 
-    if idResult <> SQLITE_OK then err_raise "SQLLite.Prepare. Не удалось выполнить запрос " & vbCrlf & spSQL & " idResult = ["&idResult&"]" & vbCrlf & oConnection.errmsg
+    if idResult <> SQLITE_OK then err_raise "SQLLite.Prepare. РќРµ СѓРґР°Р»РѕСЃСЊ РІС‹РїРѕР»РЅРёС‚СЊ Р·Р°РїСЂРѕСЃ " & vbCrlf & spSQL & " idResult = ["&idResult&"]" & vbCrlf & oConnection.errmsg
 
     idResult = objDynamicWrapperX.sqlite3_reset(hStmt)
     idResult = objDynamicWrapperX.sqlite3_step(hStmt)
@@ -1522,8 +1520,8 @@ class SQLite_Recordset
   end function
 
   Public Default function FieldByName(name)
-  'Возвращает поле [SQLLite_Field](class_SQLLite_Field) по его имени
-  '#param name - имя поля
+  'Р’РѕР·РІСЂР°С‰Р°РµС‚ РїРѕР»Рµ [SQLLite_Field](class_SQLLite_Field) РїРѕ РµРіРѕ РёРјРµРЅРё
+  '#param name - РёРјСЏ РїРѕР»СЏ
   
 
     dim field
@@ -1534,36 +1532,36 @@ class SQLite_Recordset
         exit function
       end if
     next
-    err_raise "SQLLite.FieldByName. В наборе данных нет поля с именем {" & name & "}" 
+    err_raise "SQLLite.FieldByName. Р’ РЅР°Р±РѕСЂРµ РґР°РЅРЅС‹С… РЅРµС‚ РїРѕР»СЏ СЃ РёРјРµРЅРµРј {" & name & "}" 
   end function
 
   public function EOF()
-  'Возвращает значение, которое указывает, находится ли позиция текущей записи после последней записи
+  'Р’РѕР·РІСЂР°С‰Р°РµС‚ Р·РЅР°С‡РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ СѓРєР°Р·С‹РІР°РµС‚, РЅР°С…РѕРґРёС‚СЃСЏ Р»Рё РїРѕР·РёС†РёСЏ С‚РµРєСѓС‰РµР№ Р·Р°РїРёСЃРё РїРѕСЃР»Рµ РїРѕСЃР»РµРґРЅРµР№ Р·Р°РїРёСЃРё
     EOF = isEmpty(hStmt)   
   end function
   
   public function MoveNext 
-  'Выполняет перемещение к следующей записи и делает запись текущей записью
+  'Р’С‹РїРѕР»РЅСЏРµС‚ РїРµСЂРµРјРµС‰РµРЅРёРµ Рє СЃР»РµРґСѓСЋС‰РµР№ Р·Р°РїРёСЃРё Рё РґРµР»Р°РµС‚ Р·Р°РїРёСЃСЊ С‚РµРєСѓС‰РµР№ Р·Р°РїРёСЃСЊСЋ
     dim idResult
     if not eof then 
       idResult = objDynamicWrapperX.sqlite3_step(hStmt)
       if idResult = SQLITE_ROW then 
-        ''Все хорошо дальше через Field получить значения
+        ''Р’СЃРµ С…РѕСЂРѕС€Рѕ РґР°Р»СЊС€Рµ С‡РµСЂРµР· Field РїРѕР»СѓС‡РёС‚СЊ Р·РЅР°С‡РµРЅРёСЏ
       elseif idResult = SQLITE_DONE then 
-        close'' Больше записей нет все закрываем
+        close'' Р‘РѕР»СЊС€Рµ Р·Р°РїРёСЃРµР№ РЅРµС‚ РІСЃРµ Р·Р°РєСЂС‹РІР°РµРј
       else 
         close
-        err_raise "SQLLite.MoveNext. Не удалось выполнить запрос " & sSQL & " idResult = ["&idResult&"]" & vbCrlf & oConnection.errmsg
+        err_raise "SQLLite.MoveNext. РќРµ СѓРґР°Р»РѕСЃСЊ РІС‹РїРѕР»РЅРёС‚СЊ Р·Р°РїСЂРѕСЃ " & sSQL & " idResult = ["&idResult&"]" & vbCrlf & oConnection.errmsg
       end if      
     end if
   end function
 
 
   public function close()
-  'Закрывает открытый объект
+  'Р—Р°РєСЂС‹РІР°РµС‚ РѕС‚РєСЂС‹С‚С‹Р№ РѕР±СЉРµРєС‚
 
     if not isEmpty(hStmt) then 
-      'Уничтожим все поля
+      'РЈРЅРёС‡С‚РѕР¶РёРј РІСЃРµ РїРѕР»СЏ
       if not isEmpty(Fields) then 
         dim Field 
         for each Field in Fields
@@ -1573,9 +1571,9 @@ class SQLite_Recordset
         set Fields = nothing
         Fields = empty
       end if
-      'Уничтожим в памяти запрос
+      'РЈРЅРёС‡С‚РѕР¶РёРј РІ РїР°РјСЏС‚Рё Р·Р°РїСЂРѕСЃ
       idResult = objDynamicWrapperX.sqlite3_finalize(hStmt)
-      if idResult <> SQLITE_OK then dbg "SQLLite.Finalize. Не удалось закрыть Recordset idResult = ["&idResult&"]" & vbCrlf & oConnection.errmsg, 0
+      if idResult <> SQLITE_OK then dbg "SQLLite.Finalize. РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°РєСЂС‹С‚СЊ Recordset idResult = ["&idResult&"]" & vbCrlf & oConnection.errmsg, 0
       hStmt = empty
       set oConnection = Nothing
     end if
@@ -1588,15 +1586,15 @@ class SQLite_Recordset
 end class
 
 class SQLLite_Field
-'Объект представляет столбец данных с общим типом данных и общим набором свойств
+'РћР±СЉРµРєС‚ РїСЂРµРґСЃС‚Р°РІР»СЏРµС‚ СЃС‚РѕР»Р±РµС† РґР°РЅРЅС‹С… СЃ РѕР±С‰РёРј С‚РёРїРѕРј РґР°РЅРЅС‹С… Рё РѕР±С‰РёРј РЅР°Р±РѕСЂРѕРј СЃРІРѕР№СЃС‚РІ
 
   dim ColumnNumber, sColumnName, hStmt, oRS
 
   public function Create(phStmt, pColumnNumber, oRecordSet)
-  'Инициализация объекта
-  '#param phStmt - Дескриптор текущего выражения
-  '#param pColumnNumber - Номер колонки
-  '#param oRecordSet - Объект набора данных [SQLite_Recordset](#class_SQLite_Recordset) 
+  'РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РѕР±СЉРµРєС‚Р°
+  '#param phStmt - Р”РµСЃРєСЂРёРїС‚РѕСЂ С‚РµРєСѓС‰РµРіРѕ РІС‹СЂР°Р¶РµРЅРёСЏ
+  '#param pColumnNumber - РќРѕРјРµСЂ РєРѕР»РѕРЅРєРё
+  '#param oRecordSet - РћР±СЉРµРєС‚ РЅР°Р±РѕСЂР° РґР°РЅРЅС‹С… [SQLite_Recordset](#class_SQLite_Recordset) 
 
     ColumnNumber = pColumnNumber
     hStmt = phStmt    
@@ -1605,7 +1603,7 @@ class SQLLite_Field
   end function
 
   Public Default Property Get Value
-  'Возвращает значение поля
+  'Р’РѕР·РІСЂР°С‰Р°РµС‚ Р·РЅР°С‡РµРЅРёРµ РїРѕР»СЏ
 
     if hStmt = 0 then
       Value = empty
@@ -1620,15 +1618,15 @@ class SQLLite_Field
         Case SQLITE_TEXT
           Value = objDynamicWrapperX.sqlite3_column_text16(hStmt, ColumnNumber)
         Case SQLITE_BLOB
-          err_raise "SQLLite.Field.Value. Тип BLOB не реализован "
+          err_raise "SQLLite.Field.Value. РўРёРї BLOB РЅРµ СЂРµР°Р»РёР·РѕРІР°РЅ "
         Case Else
-          err_raise "SQLLite.Field.Value. Не удалось получить значение столбца " & ColumnNumber
+          err_raise "SQLLite.Field.Value. РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕР»СѓС‡РёС‚СЊ Р·РЅР°С‡РµРЅРёРµ СЃС‚РѕР»Р±С†Р° " & ColumnNumber
       End Select
     end if
   End Property
 
   Public Property Get Name
-  'Возвращает имя поля
+  'Р’РѕР·РІСЂР°С‰Р°РµС‚ РёРјСЏ РїРѕР»СЏ
 
     if hStmt = 0 then 
       Name = Empty
@@ -1639,12 +1637,12 @@ class SQLLite_Field
   End Property 
 
   Public Property Get OrdinalPosition
-  'Возвращает позицию поля в наборе данных
+  'Р’РѕР·РІСЂР°С‰Р°РµС‚ РїРѕР·РёС†РёСЋ РїРѕР»СЏ РІ РЅР°Р±РѕСЂРµ РґР°РЅРЅС‹С…
     OrdinalPosition = ColumnNumber
   End Property 
 
   Public Sub Close()
-  'Закрывает объект и освобождает ресурсы
+  'Р—Р°РєСЂС‹РІР°РµС‚ РѕР±СЉРµРєС‚ Рё РѕСЃРІРѕР±РѕР¶РґР°РµС‚ СЂРµСЃСѓСЂСЃС‹
     hStmt = 0
     set oRs = Nothing
   end sub
